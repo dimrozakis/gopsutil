@@ -65,8 +65,8 @@ func VirtualMemory() (*VirtualMemoryStat, error) {
 	if !memavail {
 		ret.Available = ret.Free + ret.Buffers + ret.Cached
 	}
-	ret.Used = ret.Total - ret.Available
-	ret.UsedPercent = float64(ret.Total-ret.Available) / float64(ret.Total) * 100.0
+	ret.Used = ret.Total - ret.Free - ret.Buffers - ret.Cached
+	ret.UsedPercent = float64(ret.Used) / float64(ret.Total) * 100.0
 
 	return ret, nil
 }
